@@ -1,7 +1,15 @@
 .section {
-
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .section__title {
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+}
 
+.NoFeedbackText {
+  font-size: 25px;
+  margin: 0;
 }
