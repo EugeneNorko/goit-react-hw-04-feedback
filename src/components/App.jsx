@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Section } from './Section/Section';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Statistics } from 'components/Statistics/Statistics';
 
 export class App extends Component {
   state = {
@@ -7,16 +9,16 @@ export class App extends Component {
     neutral: 0,
     bad: 0,
   };
-  onCountTotal = () => {
+  countTotal = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
   };
 
-  onCountPositive = () => {
-    return Math.round((this.state.good / this.onCountTotal()) * 100);
+  countPositive = () => {
+    return Math.round((this.state.good / this.countTotal()) * 100);
   };
 
-  onSetState = option => {
+  updateState = option => {
     this.setState(prevState => ({
       [option]: prevState[option] + 1,
     }));
@@ -24,26 +26,26 @@ export class App extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'top',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        <Section
-          title={'Please Leave feedback'}
-          options={Object.keys(this.state)}
-          onBtnClick={this.onSetState}
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={this.onCountTotal()}
-          positive={this.onCountPositive()}
-        />
+      <div className="container">
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onBtnClick={this.updateState}
+          />
+        </Section>
+        <Section title="Statistics">
+          {this.countTotal() > 0 ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotal()}
+              positive={this.countPositive()}
+            />
+          ) : (
+            <p>There is no feedback</p>
+          )}
+        </Section>
       </div>
     );
   }
