@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import css from './FeedbackOptions.module.css';
 
-export const FeedbackOptions = ({ options, onBtnClick }) => {
+export const FeedbackOptions = ({ onBtnClick }) => {
+  const FEEDBACK_BUTTON = ['Good', 'Neutral', 'Bad'];
   return (
     <p className={css['feedback__button-wrapp']}>
-      {options.map(option => {
+      {FEEDBACK_BUTTON.map(button => {
         return (
           <button
-            key={option}
+            key={button}
             type="button"
             className={css.feedback__button}
-            onClick={() => onBtnClick(option)}
+            onClick={() => onBtnClick(button)}
           >
-            {option}
+            {button}
           </button>
         );
       })}
@@ -21,6 +22,5 @@ export const FeedbackOptions = ({ options, onBtnClick }) => {
 };
 
 FeedbackOptions.propTypes = {
-  options: PropTypes.array,
   onBtnClick: PropTypes.func,
 };
